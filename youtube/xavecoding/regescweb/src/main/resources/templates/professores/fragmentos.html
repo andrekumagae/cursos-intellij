@@ -1,0 +1,33 @@
+<!--Aplicando o propriedade fragment recebendo 2 argumentos-->
+<div class="container" th:fragment="form(requisicaoFormProfessor, action)">
+    <div class="row">
+        <!--th:object pega o objeto do nosso dto para preencher nos campos-->
+        <!--Substituimos a url pelo parâmetro action do fragmento-->
+        <form th:object="${requisicaoFormProfessor}"
+              th:action="${action}"
+              method="POST">
+            <div class="mb-3">
+                <label class="form-label">Nome do Professor</label>
+                <!--Para os inputs, use o * invés de $-->
+                <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}">
+                <div class="invalid-feedback" th:errors="*{nome}"></div>
+                <div></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Salário</label>
+                <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{salario}">
+                <div class="invalid-feedback" th:errors="*{salario}"></div>
+                <div></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-select" th:field="*{statusProfessor}">
+                    <option th:each="status : ${listaStatusProfessor}"
+                            th:value="${status}" th:text="${status}"></option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Submeter</button>
+            <a href="/professores">Voltar</a>
+        </form>
+    </div>
+</div>
